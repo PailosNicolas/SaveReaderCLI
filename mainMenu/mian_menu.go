@@ -42,14 +42,8 @@ func (m model) View() string {
 			cursor = ">" // cursor!
 		}
 
-		// Is this choice selected?
-		checked := " " // not selected
-		if _, ok := m.selected[i]; ok {
-			checked = "x" // selected!
-		}
-
 		// Render the row
-		s += fmt.Sprintf("%s [%s] %s\n", cursor, checked, choice)
+		s += fmt.Sprintf("%s %s\n", cursor, choice)
 	}
 
 	// The footer
