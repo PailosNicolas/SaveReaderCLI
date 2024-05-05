@@ -7,20 +7,29 @@ import (
 )
 
 type model struct {
-	choices  []string         // items on the to-do list
-	cursor   int              // which to-do list item our cursor is pointing at
-	selected map[int]struct{} // which to-do items are selected
+	choices         []choices
+	mainMenuChoices []choices // items on the to-do list
+	readSaveChoices []choices // items on the to-do list
+	cursor          int       // which to-do list item our cursor is pointing at
+	selectedCode    string
+}
+
+type choices struct {
+	name string
+	code string
 }
 
 func InitialModel() model {
 	return model{
 		// Our to-do list is a grocery list
-		choices: []string{"Load save", "Load Pokemon"},
+		mainMenuChoices: []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
+		readSaveChoices: []choices{{name: "Read file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
+		choices:         []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
 
 		// A map which indicates which choices are selected. We're using
 		// the  map like a mathematical set. The keys refer to the indexes
 		// of the `choices` slice, above.
-		selected: make(map[int]struct{}),
+		selectedCode: "main_menu",
 	}
 }
 
@@ -33,23 +42,42 @@ func (m model) View() string {
 	// The header
 	s := "Pokemon save reader CLI:\n\n"
 
-	// Iterate over our choices
-	for i, choice := range m.choices {
+	switch m.selectedCode {
+	case "main_menu":
+		// Iterate over our choices
+		for i, choice := range m.choices {
 
-		// Is the cursor pointing at this choice?
-		cursor := " " // no cursor
-		if m.cursor == i {
-			cursor = ">" // cursor!
+			// Is the cursor pointing at this choice?
+			cursor := " " // no cursor
+			if m.cursor == i {
+				cursor = ">" // cursor!
+			}
+
+			// Render the row
+			s += fmt.Sprintf("%s %s\n", cursor, choice.name)
 		}
 
-		// Render the row
-		s += fmt.Sprintf("%s %s\n", cursor, choice)
+		// The footer
+		s += "\nPress q to quit.\n"
+
+	case "read_save":
+		// Iterate over our choices
+		for i, choice := range m.choices {
+
+			// Is the cursor pointing at this choice?
+			cursor := " " // no cursor
+			if m.cursor == i {
+				cursor = ">" // cursor!
+			}
+
+			// Render the row
+			s += fmt.Sprintf("%s %s\n", cursor, choice.name)
+		}
+
+		// The footer
+		s += "\nPress q to quit.\n"
+
 	}
-
-	// The footer
-	s += "\nPress q to quit.\n"
-
-	// Send the UI for rendering
 	return s
 }
 
@@ -81,11 +109,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		// The "enter" key and the spacebar (a literal space) toggle
 		// the selected state for the item that the cursor is pointing at.
 		case "enter", " ":
-			_, ok := m.selected[m.cursor]
-			if ok {
-				delete(m.selected, m.cursor)
-			} else {
-				m.selected[m.cursor] = struct{}{}
+			m.selectedCode = m.choices[m.cursor].code
+			switch m.selectedCode {
+			case "main_menu":
+				m.choices = m.mainMenuChoices
+			case "read_save":
+				m.choices = m.readSaveChoices
 			}
 		}
 	}
