@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	main_menu "github.com/PailosNicolas/SaveReaderCLI/mainMenu"
+	menus "github.com/PailosNicolas/SaveReaderCLI/menus"
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 func main() {
-	p := tea.NewProgram(main_menu.InitialModel())
+	p := tea.NewProgram(menus.InitialModel())
 	if _, err := p.Run(); err != nil {
 		fmt.Printf("Error: %v", err)
 		os.Exit(1)
