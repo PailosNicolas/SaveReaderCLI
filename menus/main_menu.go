@@ -15,6 +15,7 @@ type model struct {
 	cursor          int       // which to-do list item our cursor is pointing at
 	selectedCode    string
 	filePicker      filepicker.Model
+	saveMenu        modelSaveMenu
 }
 
 type choices struct {
@@ -85,7 +86,11 @@ func (m model) View() string {
 	case "read_file":
 		s += m.filePicker.View()
 
+	case "save_menu":
+		s += m.saveMenu.View()
+
 	}
+
 	return s
 }
 
@@ -97,8 +102,17 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 
 		switch m.selectedCode {
+		case "save_menu":
+			m.saveMenu, cmd = m.saveMenu.Update(msg)
+			return m, cmd
 		case "read_file":
 			switch msg.String() {
+			case "enter", " ":
+				m.filePicker, cmd = m.filePicker.Update(msg)
+				m.saveMenu.selectedFile = m.filePicker.FileSelected
+				m.selectedCode = "save_menu"
+				return m, cmd
+
 			case tea.KeyEsc.String():
 				m.selectedCode = "read_save"
 				return m, nil
