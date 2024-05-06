@@ -1,6 +1,8 @@
 package menus
 
 import (
+	"strings"
+
 	"github.com/PailosNicolas/GoPkmSaveReader/savereader"
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -18,6 +20,13 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 	return m, nil
 }
 
+func (m *modelSaveMenu) readSave() {
+	m.save, _ = savereader.ReadDataFromSave(m.selectedFile)
+}
+
 func (m modelSaveMenu) View() string {
-	return ""
+	var s strings.Builder
+	s.WriteString("Trainer name:")
+	s.WriteString(m.save.Trainer.Name())
+	return s.String()
 }

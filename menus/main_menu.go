@@ -109,7 +109,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			switch msg.String() {
 			case "enter", " ":
 				m.filePicker, cmd = m.filePicker.Update(msg)
-				m.saveMenu.selectedFile = m.filePicker.FileSelected
+				m.saveMenu.selectedFile = m.filePicker.Path
+				m.saveMenu.readSave()
 				m.selectedCode = "save_menu"
 				return m, cmd
 
