@@ -26,7 +26,11 @@ func (m *modelSaveMenu) readSave() {
 
 func (m modelSaveMenu) View() string {
 	var s strings.Builder
-	s.WriteString("Trainer name:")
+	s.WriteString("Game: ")
+	s.WriteString(m.save.Game())
+	s.WriteString("\nTrainer info:")
+	s.WriteString("\n\tTrainer name: ")
 	s.WriteString(m.save.Trainer.Name())
+
 	return s.String()
 }
