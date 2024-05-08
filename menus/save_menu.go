@@ -29,7 +29,7 @@ func (m modelSaveMenu) View() string {
 	s.WriteString("Game: ")
 	s.WriteString(m.save.Game())
 	s.WriteString("\nTrainer info:")
-	s.WriteString("\n\tTrainer name: ")
+	s.WriteString("\n\t Name: ")
 	s.WriteString(m.save.Trainer.Name())
 
 	return s.String()
