@@ -103,6 +103,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		switch m.selectedCode {
 		case "save_menu":
+			switch msg.String() {
+			case tea.KeyEsc.String():
+				m.selectedCode = "read_save"
+				return m, nil
+			}
 			m.saveMenu, cmd = m.saveMenu.Update(msg)
 			return m, cmd
 		case "read_file":
