@@ -104,14 +104,24 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch m.selectedCode {
 		case "save_menu":
 			switch msg.String() {
+
+			case "ctrl+c", "q":
+				return m, tea.Quit
+
 			case tea.KeyEsc.String():
 				m.selectedCode = "read_save"
 				return m, nil
+
 			}
+
 			m.saveMenu, cmd = m.saveMenu.Update(msg)
 			return m, cmd
 		case "read_file":
 			switch msg.String() {
+
+			case "ctrl+c", "q":
+				return m, tea.Quit
+
 			case "enter", " ":
 				m.filePicker, cmd = m.filePicker.Update(msg)
 				m.saveMenu.selectedFile = m.filePicker.Path
