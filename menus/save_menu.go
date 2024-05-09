@@ -28,11 +28,16 @@ func (m modelSaveMenu) View() string {
 	var s strings.Builder
 	s.WriteString("Game: ")
 	s.WriteString(m.save.Game())
-	s.WriteString("\nTrainer info:")
+	s.WriteString("\n\nTrainer info:")
 	s.WriteString("\n\tName: ")
 	s.WriteString(m.save.Trainer.Name())
 	s.WriteString("\n\tGender: ")
 	s.WriteString(m.save.Trainer.Gender())
+	s.WriteString("\n\nTeam info:")
+	for _, pkmn := range m.save.Trainer.Team() {
+		s.WriteString("\n\t")
+		s.WriteString(pkmn.Nickname())
+	}
 
 	return s.String()
 }
