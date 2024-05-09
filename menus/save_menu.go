@@ -1,6 +1,7 @@
 package menus
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/PailosNicolas/GoPkmSaveReader/savereader"
@@ -37,6 +38,8 @@ func (m modelSaveMenu) View() string {
 	for _, pkmn := range m.save.Trainer.Team() {
 		s.WriteString("\n\t")
 		s.WriteString(pkmn.Nickname())
+		s.WriteString("\n\tLvl: ")
+		s.WriteString(strconv.Itoa(pkmn.Level()))
 	}
 
 	return s.String()
