@@ -36,10 +36,12 @@ func (m modelSaveMenu) View() string {
 	s.WriteString(m.save.Trainer.Gender())
 	s.WriteString("\n\nTeam info:")
 	for _, pkmn := range m.save.Trainer.Team() {
-		s.WriteString("\n\t")
-		s.WriteString(pkmn.Nickname())
-		s.WriteString("\n\tLvl: ")
-		s.WriteString(strconv.Itoa(pkmn.Level()))
+		if pkmn.SpeciesIndex() != 0 {
+			s.WriteString("\n\t")
+			s.WriteString(pkmn.Nickname())
+			s.WriteString("\n\tLvl: ")
+			s.WriteString(strconv.Itoa(pkmn.Level()))
+		}
 	}
 
 	return s.String()
