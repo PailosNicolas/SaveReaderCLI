@@ -38,7 +38,11 @@ func (m modelSaveMenu) View() string {
 	for _, pkmn := range m.save.Trainer.Team() {
 		if pkmn.SpeciesIndex() != 0 {
 			s.WriteString("\n\t")
-			s.WriteString(pkmn.Nickname())
+			if pkmn.Nickname() != "" {
+				s.WriteString(pkmn.Nickname())
+			} else {
+				s.WriteString(pkmn.Species())
+			}
 			s.WriteString("\n\tLvl: ")
 			s.WriteString(strconv.Itoa(pkmn.Level()))
 		}
