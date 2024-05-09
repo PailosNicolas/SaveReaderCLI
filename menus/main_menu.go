@@ -25,7 +25,8 @@ type choices struct {
 
 func InitialModel() model {
 	fp := filepicker.New()
-	fp.AllowedTypes = []string{".sav", ".pkmn"}
+	fp.AllowedTypes = []string{".sav", ".pkmn", ".SAV"}
+	fp.ShowPermissions = false
 	fp.CurrentDirectory, _ = os.Getwd()
 	return model{
 		// Our to-do list is a grocery list
@@ -124,9 +125,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			case "enter", " ":
 				m.filePicker, cmd = m.filePicker.Update(msg)
-				m.saveMenu.selectedFile = m.filePicker.Path
-				m.saveMenu.readSave()
-				m.selectedCode = "save_menu"
+				if ok, _ := m.filePicker.DidSelectDisabledFile(msg); !ok {
+					m.saveMenu.selectedFile = m.filePicker.Path
+					m.saveMenu.readSave()
+					m.selectedCode = "save_menu"
+				}
 				return m, cmd
 
 			case tea.KeyEsc.String():
