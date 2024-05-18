@@ -73,9 +73,11 @@ func (m model) View() string {
 
 	case "read_file":
 		s += m.filePicker.View()
+		s += "\nPress q to quit.\n"
 
 	case "save_menu":
 		s += m.saveMenu.View()
+		s += "\nPress q to quit.\n"
 
 	}
 

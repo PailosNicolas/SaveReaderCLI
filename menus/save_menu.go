@@ -48,5 +48,7 @@ func (m modelSaveMenu) View() string {
 		}
 	}
 
+	s.WriteString("\n")
+
 	return s.String()
 }
