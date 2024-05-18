@@ -29,15 +29,11 @@ func InitialModel() model {
 	fp.ShowPermissions = false
 	fp.CurrentDirectory, _ = os.Getwd()
 	return model{
-		// Our to-do list is a grocery list
 		mainMenuChoices: []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
 		readSaveChoices: []choices{{name: "Read file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
 		choices:         []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
 		filePicker:      fp,
-		// A map which indicates which choices are selected. We're using
-		// the  map like a mathematical set. The keys refer to the indexes
-		// of the `choices` slice, above.
-		selectedCode: "main_menu",
+		selectedCode:    "main_menu",
 	}
 }
 
