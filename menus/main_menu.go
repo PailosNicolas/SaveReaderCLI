@@ -47,37 +47,28 @@ func (m model) View() string {
 
 	switch m.selectedCode {
 	case "main_menu":
-		// Iterate over our choices
 		for i, choice := range m.choices {
-
-			// Is the cursor pointing at this choice?
-			cursor := " " // no cursor
+			cursor := " "
 			if m.cursor == i {
-				cursor = ">" // cursor!
+				cursor = ">"
 			}
 
-			// Render the row
 			s += fmt.Sprintf("%s %s\n", cursor, choice.name)
 		}
 
-		// The footer
 		s += "\nPress q to quit.\n"
 
 	case "read_save":
-		// Iterate over our choices
 		for i, choice := range m.choices {
 
-			// Is the cursor pointing at this choice?
-			cursor := " " // no cursor
+			cursor := " "
 			if m.cursor == i {
-				cursor = ">" // cursor!
+				cursor = ">"
 			}
 
-			// Render the row
 			s += fmt.Sprintf("%s %s\n", cursor, choice.name)
 		}
 
-		// The footer
 		s += "\nPress q to quit.\n"
 
 	case "read_file":
@@ -95,7 +86,6 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 	switch msg := msg.(type) {
 
-	// Is it a key press?
 	case tea.KeyMsg:
 
 		switch m.selectedCode {
