@@ -10,9 +10,9 @@ import (
 
 type model struct {
 	choices         []choices
-	mainMenuChoices []choices // items on the to-do list
-	readSaveChoices []choices // items on the to-do list
-	cursor          int       // which to-do list item our cursor is pointing at
+	mainMenuChoices []choices
+	readSaveChoices []choices
+	cursor          int // which choise the cursor is pointing at
 	selectedCode    string
 	filePicker      filepicker.Model
 	saveMenu        modelSaveMenu
