@@ -1,6 +1,7 @@
 package menus
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -21,7 +22,7 @@ func (m modelSaveMenu) Init() tea.Cmd {
 }
 
 func (m *modelSaveMenu) SetVariables() {
-	m.choices = []choice{{name: "Export pokemon", code: "export_pokemon"}}
+	m.choices = []choice{{name: "Export pokemon", code: "export_pokemon"}, {name: "Go back", code: "go_back"}}
 	m.selectedCode = "general_info"
 	m.cursor = 0
 }
@@ -44,9 +45,8 @@ func (m modelSaveMenu) View() string {
 	switch m.selectedCode {
 	case "general_info":
 		s.WriteString(m.generalInfo())
+		s.WriteString(m.generalInfoMenu())
 	}
-
-	s.WriteString("\n")
 
 	return s.String()
 }
@@ -74,5 +74,23 @@ func (m modelSaveMenu) generalInfo() string {
 		}
 	}
 
+	s.WriteString("\n")
+
 	return s.String()
+}
+
+func (m modelSaveMenu) generalInfoMenu() string {
+	s := "\n"
+	for i, choice := range m.choices {
+		cursor := " "
+		if m.cursor == i {
+			cursor = ">"
+		}
+
+		s += fmt.Sprintf("%s %s\n", cursor, choice.name)
+	}
+
+	s += "\n"
+
+	return s
 }
