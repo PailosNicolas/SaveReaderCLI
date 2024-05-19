@@ -13,11 +13,17 @@ type modelSaveMenu struct {
 	save         savereader.Save
 	selectedCode string
 	choices      []string
-	crusor       int
+	cursor       int
 }
 
 func (m modelSaveMenu) Init() tea.Cmd {
 	return nil
+}
+
+func (m *modelSaveMenu) SetVariables() {
+	m.choices = []string{"general_info"}
+	m.selectedCode = "general_info"
+	m.cursor = 0
 }
 
 func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {

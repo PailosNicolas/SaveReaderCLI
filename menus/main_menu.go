@@ -116,6 +116,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				if ok, _ := m.filePicker.DidSelectDisabledFile(msg); !ok {
 					m.saveMenu.selectedFile = m.filePicker.Path
 					m.saveMenu.readSave()
+					m.saveMenu.SetVariables()
 					m.selectedCode = "save_menu"
 				}
 				return m, cmd
