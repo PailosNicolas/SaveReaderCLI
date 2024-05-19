@@ -12,7 +12,7 @@ type modelSaveMenu struct {
 	selectedFile string
 	save         savereader.Save
 	selectedCode string
-	choices      []string
+	choices      []choice
 	cursor       int
 }
 
@@ -21,9 +21,14 @@ func (m modelSaveMenu) Init() tea.Cmd {
 }
 
 func (m *modelSaveMenu) SetVariables() {
-	m.choices = []string{"general_info"}
+	m.choices = []choice{{name: "Export pokemon", code: "export_pokemon"}}
 	m.selectedCode = "general_info"
 	m.cursor = 0
+}
+
+type choice struct {
+	name string
+	code string
 }
 
 func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
@@ -36,8 +41,10 @@ func (m *modelSaveMenu) readSave() {
 
 func (m modelSaveMenu) View() string {
 	var s strings.Builder
-
-	s.WriteString(m.generalInfo())
+	switch m.selectedCode {
+	case "general_info":
+		s.WriteString(m.generalInfo())
+	}
 
 	s.WriteString("\n")
 
