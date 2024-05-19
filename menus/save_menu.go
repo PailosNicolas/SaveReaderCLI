@@ -33,6 +33,22 @@ type choice struct {
 }
 
 func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
+	switch msg := msg.(type) {
+
+	case tea.KeyMsg:
+		switch msg.String() {
+
+		case "up", "k":
+			if m.cursor > 0 {
+				m.cursor--
+			}
+
+		case "down", "j":
+			if m.cursor < len(m.choices)-1 {
+				m.cursor++
+			}
+		}
+	}
 	return m, nil
 }
 
