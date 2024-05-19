@@ -11,6 +11,9 @@ import (
 type modelSaveMenu struct {
 	selectedFile string
 	save         savereader.Save
+	selectedCode string
+	choices      []string
+	crusor       int
 }
 
 func (m modelSaveMenu) Init() tea.Cmd {
