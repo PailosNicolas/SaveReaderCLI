@@ -27,6 +27,16 @@ func (m *modelSaveMenu) readSave() {
 
 func (m modelSaveMenu) View() string {
 	var s strings.Builder
+
+	s.WriteString(m.generalInfo())
+
+	s.WriteString("\n")
+
+	return s.String()
+}
+
+func (m modelSaveMenu) generalInfo() string {
+	var s strings.Builder
 	s.WriteString("Game: ")
 	s.WriteString(m.save.Game())
 	s.WriteString("\n\nTrainer info:")
@@ -47,8 +57,6 @@ func (m modelSaveMenu) View() string {
 			s.WriteString(strconv.Itoa(pkmn.Level()))
 		}
 	}
-
-	s.WriteString("\n")
 
 	return s.String()
 }
