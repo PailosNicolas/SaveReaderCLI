@@ -10,11 +10,12 @@ import (
 )
 
 type modelSaveMenu struct {
-	selectedFile string
-	save         savereader.Save
-	selectedCode string
-	choices      []choice
-	cursor       int
+	selectedFile    string
+	save            savereader.Save
+	selectedCode    string
+	choices         []choice
+	mainMenuChoices []choice
+	cursor          int
 }
 
 func (m modelSaveMenu) Init() tea.Cmd {
@@ -22,7 +23,8 @@ func (m modelSaveMenu) Init() tea.Cmd {
 }
 
 func (m *modelSaveMenu) SetVariables() {
-	m.choices = []choice{{name: "Export pokemon", code: "export_pokemon"}, {name: "Go back", code: "go_back"}}
+	m.mainMenuChoices = []choice{{name: "Export pokemon", code: "export_pokemon"}, {name: "Go back", code: "go_back"}}
+	m.choices = m.mainMenuChoices
 	m.selectedCode = "general_info"
 	m.cursor = 0
 }
