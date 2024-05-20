@@ -63,10 +63,12 @@ func (m *modelSaveMenu) readSave() {
 	m.save, _ = savereader.ReadDataFromSave(m.selectedFile)
 	m.exportMenuChoices = []choice{}
 	for id, pkmn := range m.save.Trainer.Team() {
-		if pkmn.Nickname() != "" {
-			m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Nickname(), string(id)})
-		} else {
-			m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Species(), string(id)})
+		if pkmn.OTName() != "" { // improve empy validation
+			if pkmn.Nickname() != "" {
+				m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Nickname(), string(id)})
+			} else {
+				m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Species(), string(id)})
+			}
 		}
 	}
 }
