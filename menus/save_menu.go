@@ -10,12 +10,13 @@ import (
 )
 
 type modelSaveMenu struct {
-	selectedFile    string
-	save            savereader.Save
-	selectedCode    string
-	choices         []choice
-	mainMenuChoices []choice
-	cursor          int
+	selectedFile      string
+	save              savereader.Save
+	selectedCode      string
+	choices           []choice
+	mainMenuChoices   []choice
+	exportMenuChoices []choice
+	cursor            int
 }
 
 func (m modelSaveMenu) Init() tea.Cmd {
@@ -52,6 +53,7 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 
 		case "enter", " ":
 			m.selectedCode = m.choices[m.cursor].code
+			m.changeChoices()
 		}
 	}
 	return m, nil
@@ -59,6 +61,14 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 
 func (m *modelSaveMenu) readSave() {
 	m.save, _ = savereader.ReadDataFromSave(m.selectedFile)
+	m.exportMenuChoices = []choice{}
+	for id, pkmn := range m.save.Trainer.Team() {
+		if pkmn.Nickname() != "" {
+			m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Nickname(), string(id)})
+		} else {
+			m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Species(), string(id)})
+		}
+	}
 }
 
 func (m modelSaveMenu) View() string {
@@ -66,8 +76,8 @@ func (m modelSaveMenu) View() string {
 	switch m.selectedCode {
 	case "general_info":
 		s.WriteString(m.generalInfo())
-		s.WriteString(m.generalInfoMenu())
 	}
+	s.WriteString(m.generalInfoMenu())
 
 	return s.String()
 }
@@ -114,4 +124,13 @@ func (m modelSaveMenu) generalInfoMenu() string {
 	s += "\n"
 
 	return s
+}
+
+func (m *modelSaveMenu) changeChoices() {
+	switch m.selectedCode {
+	case "export_pokemon":
+		m.choices = m.exportMenuChoices
+	default:
+		m.choices = m.mainMenuChoices
+	}
 }
