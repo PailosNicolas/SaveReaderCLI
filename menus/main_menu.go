@@ -104,6 +104,9 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 			m.saveMenu, cmd = m.saveMenu.Update(msg)
+			if m.saveMenu.selectedCode == "go_back" {
+				m.selectedCode = "main_menu"
+			}
 			return m, cmd
 		case "read_file":
 			switch msg.String() {

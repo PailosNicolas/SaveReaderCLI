@@ -47,6 +47,9 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 			if m.cursor < len(m.choices)-1 {
 				m.cursor++
 			}
+
+		case "enter", " ":
+			m.selectedCode = m.choices[m.cursor].code
 		}
 	}
 	return m, nil
