@@ -18,6 +18,7 @@ type modelSaveMenu struct {
 	mainMenuChoices   []choice
 	exportMenuChoices []choice
 	cursor            int
+	errorStr          string
 }
 
 func (m modelSaveMenu) Init() tea.Cmd {
@@ -40,6 +41,11 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 	switch msg := msg.(type) {
 
 	case tea.KeyMsg:
+		if m.selectedCode == "error" {
+			m.selectedCode = "general_info"
+			m.choices = m.mainMenuChoices
+			return m, nil
+		}
 		switch msg.String() {
 
 		case "up", "k":
@@ -56,11 +62,18 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 			if m.selectedCode == "export_pokemon" {
 				dir, err := os.Getwd()
 				if err != nil {
-					m.selectedCode = "go_back"
+					m.selectedCode = "error"
+					m.errorStr = err.Error()
+					return m, nil
 				}
 				dir += "/"
 				team := m.save.Trainer.Team()
-				team[m.cursor].ExportPokemonToFile(dir)
+				err = team[m.cursor].ExportPokemonToFile(dir)
+				if err != nil {
+					m.selectedCode = "error"
+					m.errorStr = err.Error()
+					return m, nil
+				}
 			}
 
 			m.selectedCode = m.choices[m.cursor].code
@@ -87,6 +100,11 @@ func (m *modelSaveMenu) readSave() {
 func (m modelSaveMenu) View() string {
 	var s strings.Builder
 	switch m.selectedCode {
+	case "error":
+		s.WriteString("An error has occured:\n")
+		s.WriteString(m.errorStr + "\n")
+		s.WriteString("Press any key to continue.\n")
+		return s.String()
 	case "general_info":
 		s.WriteString(m.generalInfo())
 	}
