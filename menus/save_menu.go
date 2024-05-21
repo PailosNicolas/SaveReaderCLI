@@ -2,6 +2,7 @@ package menus
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 
@@ -52,6 +53,16 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 			}
 
 		case "enter", " ":
+			if m.selectedCode == "export_pokemon" {
+				dir, err := os.Getwd()
+				if err != nil {
+					m.selectedCode = "go_back"
+				}
+				dir += "/"
+				team := m.save.Trainer.Team()
+				team[m.cursor].ExportPokemonToFile(dir)
+			}
+
 			m.selectedCode = m.choices[m.cursor].code
 			m.changeChoices()
 		}
