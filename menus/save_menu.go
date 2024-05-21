@@ -65,9 +65,9 @@ func (m *modelSaveMenu) readSave() {
 	for id, pkmn := range m.save.Trainer.Team() {
 		if pkmn.OTName() != "" { // improve empy validation
 			if pkmn.Nickname() != "" {
-				m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Nickname(), string(id)})
+				m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Nickname(), string(rune(id))})
 			} else {
-				m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Species(), string(id)})
+				m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Species(), string(rune(id))})
 			}
 		}
 	}
