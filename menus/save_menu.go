@@ -101,7 +101,7 @@ func (m modelSaveMenu) View() string {
 	var s strings.Builder
 	switch m.selectedCode {
 	case "error":
-		s.WriteString("An error has occured:\n")
+		s.WriteString("An error has occurred:\n")
 		s.WriteString(m.errorStr + "\n")
 		s.WriteString("Press any key to continue.\n")
 		return s.String()
