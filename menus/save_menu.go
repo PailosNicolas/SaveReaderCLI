@@ -11,14 +11,15 @@ import (
 )
 
 type modelSaveMenu struct {
-	selectedFile      string
-	save              savereader.Save
-	selectedCode      string
-	choices           []choice
-	mainMenuChoices   []choice
-	exportMenuChoices []choice
-	cursor            int
-	errorStr          string
+	selectedFile       string
+	save               savereader.Save
+	selectedCode       string
+	choices            []choice
+	mainMenuChoices    []choice
+	generalInfoChoices []choice
+	exportMenuChoices  []choice
+	cursor             int
+	errorStr           string
 }
 
 func (m modelSaveMenu) Init() tea.Cmd {
@@ -26,9 +27,10 @@ func (m modelSaveMenu) Init() tea.Cmd {
 }
 
 func (m *modelSaveMenu) SetVariables() {
-	m.mainMenuChoices = []choice{{name: "Export pokemon", code: "export_pokemon"}, {name: "Go back", code: "go_back"}}
+	m.mainMenuChoices = []choice{{name: "General information", code: "general_info"}, {name: "Export pokemon", code: "export_pokemon"}, {name: "Go back", code: "go_back"}}
+	m.generalInfoChoices = []choice{{name: "Go back", code: "main_menu"}}
 	m.choices = m.mainMenuChoices
-	m.selectedCode = "general_info"
+	m.selectedCode = "main_menu"
 	m.cursor = 0
 }
 
@@ -42,7 +44,7 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 
 	case tea.KeyMsg:
 		if m.selectedCode == "error" {
-			m.selectedCode = "general_info"
+			m.selectedCode = "main_menu"
 			m.choices = m.mainMenuChoices
 			return m, nil
 		}
@@ -105,11 +107,10 @@ func (m modelSaveMenu) View() string {
 		s.WriteString(m.errorStr + "\n")
 		s.WriteString("Press any key to continue.\n")
 		return s.String()
-		//case "general_info":
-		//	s.WriteString(m.generalInfo())
+	case "general_info":
+		s.WriteString(m.generalInfo())
 	}
 	s.WriteString(m.generalInfoMenu())
-	s.WriteString(m.saveHeader())
 
 	return s.String()
 }
@@ -143,7 +144,7 @@ func (m modelSaveMenu) generalInfo() string {
 }
 
 func (m modelSaveMenu) generalInfoMenu() string {
-	s := "\n"
+	s := ""
 	for i, choice := range m.choices {
 		if m.cursor == i {
 			s += fmt.Sprintf("\033[31m%s \033[0m\n", choice.name)
@@ -161,19 +162,9 @@ func (m *modelSaveMenu) changeChoices() {
 	switch m.selectedCode {
 	case "export_pokemon":
 		m.choices = m.exportMenuChoices
+	case "general_info":
+		m.choices = m.generalInfoChoices
 	default:
 		m.choices = m.mainMenuChoices
 	}
-}
-
-func (m modelSaveMenu) saveHeader() string {
-	var s strings.Builder
-	s.WriteString("========= Save Info:\n")
-	s.WriteString("Game: ")
-	s.WriteString(m.save.Game())
-	s.WriteString("\nTrainer: ")
-	s.WriteString(m.save.Trainer.Name())
-	s.WriteString("\n")
-
-	return s.String()
 }
