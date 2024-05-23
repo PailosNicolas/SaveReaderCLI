@@ -105,10 +105,11 @@ func (m modelSaveMenu) View() string {
 		s.WriteString(m.errorStr + "\n")
 		s.WriteString("Press any key to continue.\n")
 		return s.String()
-	case "general_info":
-		s.WriteString(m.generalInfo())
+		//case "general_info":
+		//	s.WriteString(m.generalInfo())
 	}
 	s.WriteString(m.generalInfoMenu())
+	s.WriteString(m.saveHeader())
 
 	return s.String()
 }
@@ -163,4 +164,16 @@ func (m *modelSaveMenu) changeChoices() {
 	default:
 		m.choices = m.mainMenuChoices
 	}
+}
+
+func (m modelSaveMenu) saveHeader() string {
+	var s strings.Builder
+	s.WriteString("========= Save Info:\n")
+	s.WriteString("Game: ")
+	s.WriteString(m.save.Game())
+	s.WriteString("\nTrainer: ")
+	s.WriteString(m.save.Trainer.Name())
+	s.WriteString("\n")
+
+	return s.String()
 }
