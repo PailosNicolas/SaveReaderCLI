@@ -9,13 +9,14 @@ import (
 )
 
 type model struct {
-	choices         []choices
-	mainMenuChoices []choices
-	readSaveChoices []choices
-	cursor          int // which choise the cursor is pointing at
-	selectedCode    string
-	filePicker      filepicker.Model
-	saveMenu        modelSaveMenu
+	choices            []choices
+	mainMenuChoices    []choices
+	readSaveChoices    []choices
+	loadPokemonChoices []choices
+	cursor             int // which choise the cursor is pointing at
+	selectedCode       string
+	filePicker         filepicker.Model
+	saveMenu           modelSaveMenu
 }
 
 type choices struct {
@@ -29,11 +30,12 @@ func InitialModel() model {
 	fp.ShowPermissions = false
 	fp.CurrentDirectory, _ = os.Getwd()
 	return model{
-		mainMenuChoices: []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
-		readSaveChoices: []choices{{name: "Read file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
-		choices:         []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
-		filePicker:      fp,
-		selectedCode:    "main_menu",
+		mainMenuChoices:    []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
+		readSaveChoices:    []choices{{name: "Read file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
+		loadPokemonChoices: []choices{{name: "Go to main menu", code: "main_menu"}},
+		choices:            []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
+		filePicker:         fp,
+		selectedCode:       "main_menu",
 	}
 }
 
@@ -139,6 +141,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					m.choices = m.mainMenuChoices
 				case "read_save":
 					m.choices = m.readSaveChoices
+				case "load_pokemon":
+					m.choices = m.loadPokemonChoices
 				}
 			}
 			return m, nil
