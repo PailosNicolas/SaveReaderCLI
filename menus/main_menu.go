@@ -48,12 +48,15 @@ func (m model) View() string {
 	switch m.selectedCode {
 	case "main_menu":
 		for i, choice := range m.choices {
-			cursor := " "
 			if m.cursor == i {
-				cursor = ">"
+				s += "\033[31m" // adds color red
 			}
 
-			s += fmt.Sprintf("%s %s\n", cursor, choice.name)
+			s += fmt.Sprintf("%s\n", choice.name)
+
+			if m.cursor == i {
+				s += "\033[0m" // resets color
+			}
 		}
 
 		s += "\nPress q to quit.\n"
