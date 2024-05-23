@@ -49,13 +49,9 @@ func (m model) View() string {
 	case "main_menu":
 		for i, choice := range m.choices {
 			if m.cursor == i {
-				s += "\033[31m" // adds color red
-			}
-
-			s += fmt.Sprintf("%s\n", choice.name)
-
-			if m.cursor == i {
-				s += "\033[0m" // resets color
+				s += fmt.Sprintf("\033[31m%s \033[0m\n", choice.name)
+			} else {
+				s += fmt.Sprintf("%s\n", choice.name)
 			}
 		}
 
@@ -64,12 +60,12 @@ func (m model) View() string {
 	case "read_save":
 		for i, choice := range m.choices {
 
-			cursor := " "
 			if m.cursor == i {
-				cursor = ">"
+				s += fmt.Sprintf("\033[31m%s \033[0m\n", choice.name)
+			} else {
+				s += fmt.Sprintf("%s\n", choice.name)
 			}
 
-			s += fmt.Sprintf("%s %s\n", cursor, choice.name)
 		}
 
 		s += "\nPress q to quit.\n"
