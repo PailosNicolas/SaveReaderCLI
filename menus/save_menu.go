@@ -133,7 +133,7 @@ func (m modelSaveMenu) generalInfo() string {
 			} else {
 				s.WriteString(pkmn.Species())
 			}
-			s.WriteString("\n\tLvl: ")
+			s.WriteString(" Lvl: ")
 			s.WriteString(strconv.Itoa(pkmn.Level()))
 		}
 	}
