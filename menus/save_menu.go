@@ -144,12 +144,11 @@ func (m modelSaveMenu) generalInfo() string {
 func (m modelSaveMenu) generalInfoMenu() string {
 	s := "\n"
 	for i, choice := range m.choices {
-		cursor := " "
 		if m.cursor == i {
-			cursor = ">"
+			s += fmt.Sprintf("\033[31m%s \033[0m\n", choice.name)
+		} else {
+			s += fmt.Sprintf("%s\n", choice.name)
 		}
-
-		s += fmt.Sprintf("%s %s\n", cursor, choice.name)
 	}
 
 	s += "\n"
