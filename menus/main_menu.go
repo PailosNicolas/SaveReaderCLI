@@ -136,6 +136,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			case "enter", " ":
 				m.selectedCode = m.choices[m.cursor].code
+				m.cursor = 0
 				switch m.selectedCode {
 				case "main_menu":
 					m.choices = m.mainMenuChoices
