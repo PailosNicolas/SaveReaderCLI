@@ -46,36 +46,23 @@ func (m model) View() string {
 	s := "Pokemon save reader CLI:\n\n"
 
 	switch m.selectedCode {
-	case "main_menu":
-		for i, choice := range m.choices {
-			if m.cursor == i {
-				s += fmt.Sprintf("\033[31m%s \033[0m\n", choice.name)
-			} else {
-				s += fmt.Sprintf("%s\n", choice.name)
-			}
-		}
-
-		s += "\nPress q to quit.\n"
-
-	case "read_save":
-		for i, choice := range m.choices {
-
-			if m.cursor == i {
-				s += fmt.Sprintf("\033[31m%s \033[0m\n", choice.name)
-			} else {
-				s += fmt.Sprintf("%s\n", choice.name)
-			}
-
-		}
-
-		s += "\nPress q to quit.\n"
-
 	case "read_file":
 		s += m.filePicker.View()
 		s += "\nPress q to quit.\n"
 
 	case "save_menu":
 		s += m.saveMenu.View()
+		s += "\nPress q to quit.\n"
+
+	default:
+		for i, choice := range m.choices {
+			if m.cursor == i {
+				s += fmt.Sprintf("\033[31m%s \033[0m\n", choice.name)
+			} else {
+				s += fmt.Sprintf("%s\n", choice.name)
+			}
+		}
+
 		s += "\nPress q to quit.\n"
 
 	}
