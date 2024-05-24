@@ -11,15 +11,16 @@ import (
 )
 
 type modelSaveMenu struct {
-	selectedFile       string
-	save               savereader.Save
-	selectedCode       string
-	choices            []choice
-	mainMenuChoices    []choice
-	generalInfoChoices []choice
-	exportMenuChoices  []choice
-	cursor             int
-	errorStr           string
+	selectedFile           string
+	save                   savereader.Save
+	selectedCode           string
+	choices                []choice
+	mainMenuChoices        []choice
+	generalInfoChoices     []choice
+	exportMenuChoices      []choice
+	teamDetailsMenuChoices []choice
+	cursor                 int
+	errorStr               string
 }
 
 func (m modelSaveMenu) Init() tea.Cmd {
@@ -28,7 +29,8 @@ func (m modelSaveMenu) Init() tea.Cmd {
 
 func (m *modelSaveMenu) SetVariables() {
 	m.mainMenuChoices = []choice{{name: "General information", code: "general_info"}, {name: "Export pokemon", code: "export_pokemon"}, {name: "Go back", code: "go_back"}}
-	m.generalInfoChoices = []choice{{name: "Go back", code: "main_menu"}}
+	m.generalInfoChoices = []choice{{name: "Team details", code: "team_details"}, {name: "Go back", code: "main_menu"}}
+	m.teamDetailsMenuChoices = []choice{{name: "Go back", code: "general_info"}}
 	m.choices = m.mainMenuChoices
 	m.selectedCode = "main_menu"
 	m.cursor = 0
@@ -109,6 +111,8 @@ func (m modelSaveMenu) View() string {
 		return s.String()
 	case "general_info":
 		s.WriteString(m.generalInfo())
+	case "team_details":
+		s.WriteString(m.teamDetails())
 	}
 	s.WriteString(m.generalInfoMenu())
 
@@ -164,7 +168,30 @@ func (m *modelSaveMenu) changeChoices() {
 		m.choices = m.exportMenuChoices
 	case "general_info":
 		m.choices = m.generalInfoChoices
+	case "team_details":
+		m.choices = m.teamDetailsMenuChoices
 	default:
 		m.choices = m.mainMenuChoices
 	}
+}
+
+func (m modelSaveMenu) teamDetails() string {
+	var s strings.Builder
+	for _, pkmn := range m.save.Trainer.Team() {
+		if pkmn.SpeciesIndex() != 0 {
+			if pkmn.Nickname() != "" {
+				s.WriteString(pkmn.Nickname())
+			} else {
+				s.WriteString(pkmn.Species())
+			}
+			s.WriteString(" Lvl: ")
+			s.WriteString(strconv.Itoa(pkmn.Level()))
+			s.WriteString("\n Item held: ")
+			s.WriteString(pkmn.ItemHeld().Name)
+		}
+	}
+
+	s.WriteString("\n")
+
+	return s.String()
 }
