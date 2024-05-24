@@ -209,6 +209,25 @@ func (m modelSaveMenu) pkmnDetail(id int) string {
 		}
 	}
 
+	s.WriteString("\n Stats:\n")
+	stats := team[id].Stats()
+
+	s.WriteString("\n Hp:")
+	s.WriteString(strconv.Itoa(stats.CurrentHP))
+	s.WriteString("/")
+	s.WriteString(strconv.Itoa(stats.TotalHP))
+
+	s.WriteString("\n Attack:")
+	s.WriteString(strconv.Itoa(stats.Attack))
+	s.WriteString("\n Defense:")
+	s.WriteString(strconv.Itoa(stats.Defense))
+	s.WriteString("\n Special Defense:")
+	s.WriteString(strconv.Itoa(stats.SpecialDefense))
+	s.WriteString("\n Special Attack:")
+	s.WriteString(strconv.Itoa(stats.SpecialAttack))
+	s.WriteString("\n Speed:")
+	s.WriteString(strconv.Itoa(stats.Speed))
+
 	s.WriteString("\n")
 
 	return s.String()
