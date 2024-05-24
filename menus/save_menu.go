@@ -193,6 +193,21 @@ func (m modelSaveMenu) pkmnDetail(id int) string {
 	s.WriteString(strconv.Itoa(team[id].Level()))
 	s.WriteString("\n Item held: ")
 	s.WriteString(team[id].ItemHeld().Name)
+	s.WriteString("\n Moves:\n\t")
+	for index, move := range team[id].Moves() {
+		budget := 25
+		if move.Id != 0 {
+			s.WriteString(move.Name)
+		} else {
+			s.WriteString("Empty")
+		}
+		if mod := index % 2; mod != 0 {
+			s.WriteString("\n\t")
+		} else {
+			space := strings.Repeat(" ", (budget - len(move.Name)))
+			s.WriteString(space)
+		}
+	}
 
 	s.WriteString("\n")
 
