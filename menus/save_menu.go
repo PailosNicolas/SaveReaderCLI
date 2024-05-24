@@ -30,7 +30,6 @@ func (m modelSaveMenu) Init() tea.Cmd {
 func (m *modelSaveMenu) SetVariables() {
 	m.mainMenuChoices = []choice{{name: "General information", code: "general_info"}, {name: "Export pokemon", code: "export_pokemon"}, {name: "Go back", code: "go_back"}}
 	m.generalInfoChoices = []choice{{name: "Team details", code: "team_details"}, {name: "Go back", code: "main_menu"}}
-	m.teamDetailsMenuChoices = []choice{{name: "Go back", code: "general_info"}}
 	m.choices = m.mainMenuChoices
 	m.selectedCode = "main_menu"
 	m.cursor = 0
@@ -94,11 +93,14 @@ func (m *modelSaveMenu) readSave() {
 		if pkmn.OTName() != "" { // improve empy validation
 			if pkmn.Nickname() != "" {
 				m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Nickname(), string(rune(id))})
+				m.teamDetailsMenuChoices = append(m.teamDetailsMenuChoices, choice{pkmn.Nickname(), "team_details"})
 			} else {
 				m.exportMenuChoices = append(m.exportMenuChoices, choice{pkmn.Species(), string(rune(id))})
+				m.teamDetailsMenuChoices = append(m.teamDetailsMenuChoices, choice{pkmn.Species(), "team_details"})
 			}
 		}
 	}
+	m.teamDetailsMenuChoices = append(m.teamDetailsMenuChoices, choice{name: "Go back", code: "general_info"})
 }
 
 func (m modelSaveMenu) View() string {
@@ -112,7 +114,11 @@ func (m modelSaveMenu) View() string {
 	case "general_info":
 		s.WriteString(m.generalInfo())
 	case "team_details":
-		s.WriteString(m.teamDetails())
+		if m.cursor < len(m.teamDetailsMenuChoices)-1 {
+			s.WriteString(m.pkmnDetail(m.cursor))
+		} else {
+			s.WriteString(m.pkmnDetail(m.cursor - 1))
+		}
 	}
 	s.WriteString(m.generalInfoMenu())
 
@@ -175,21 +181,18 @@ func (m *modelSaveMenu) changeChoices() {
 	}
 }
 
-func (m modelSaveMenu) teamDetails() string {
+func (m modelSaveMenu) pkmnDetail(id int) string {
 	var s strings.Builder
-	for _, pkmn := range m.save.Trainer.Team() {
-		if pkmn.SpeciesIndex() != 0 {
-			if pkmn.Nickname() != "" {
-				s.WriteString(pkmn.Nickname())
-			} else {
-				s.WriteString(pkmn.Species())
-			}
-			s.WriteString(" Lvl: ")
-			s.WriteString(strconv.Itoa(pkmn.Level()))
-			s.WriteString("\n Item held: ")
-			s.WriteString(pkmn.ItemHeld().Name)
-		}
+	team := m.save.Trainer.Team()
+	if team[id].Nickname() != "" {
+		s.WriteString(team[id].Nickname())
+	} else {
+		s.WriteString(team[id].Species())
 	}
+	s.WriteString(" Lvl: ")
+	s.WriteString(strconv.Itoa(team[id].Level()))
+	s.WriteString("\n Item held: ")
+	s.WriteString(team[id].ItemHeld().Name)
 
 	s.WriteString("\n")
 
