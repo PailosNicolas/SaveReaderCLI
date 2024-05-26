@@ -211,12 +211,22 @@ func (m modelSaveMenu) pkmnDetail(id int) string {
 	}
 
 	budget := 25
+	budgetHeader := 10
 
-	s.WriteString("\n Stats:")
+	s.WriteString("\n Stats:\n\t")
 	stats := team[id].Stats()
+	space, _ := spaceCalculator(budget, " Stats:")
+	s.WriteString(space)
+	s.WriteString("\tStat")
+	space, _ = spaceCalculator(budgetHeader, "Stat")
+	s.WriteString(space)
+	s.WriteString("IV")
+	space, _ = spaceCalculator(budgetHeader, "IV")
+	s.WriteString(space)
+	s.WriteString("EVs")
 
 	s.WriteString("\n\tHp:")
-	space, _ := spaceCalculator(budget, "Hp:")
+	space, _ = spaceCalculator(budget, "Hp:")
 	s.WriteString(space)
 	s.WriteString(strconv.Itoa(stats.TotalHP))
 
