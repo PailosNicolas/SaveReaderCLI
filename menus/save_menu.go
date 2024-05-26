@@ -205,7 +205,7 @@ func (m modelSaveMenu) pkmnDetail(id int) string {
 		if mod := index % 2; mod != 0 {
 			s.WriteString("\n\t")
 		} else {
-			space := strings.Repeat(" ", (budget - len(move.Name)))
+			space, _ := spaceCalculator(budget, move.Name)
 			s.WriteString(space)
 		}
 	}
