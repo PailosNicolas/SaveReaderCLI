@@ -209,23 +209,23 @@ func (m modelSaveMenu) pkmnDetail(id int) string {
 		}
 	}
 
-	s.WriteString("\n Stats:\n")
+	s.WriteString("\n Stats:")
 	stats := team[id].Stats()
 
-	s.WriteString("\n Hp:")
+	s.WriteString("\n\tHp:")
 	s.WriteString(strconv.Itoa(stats.CurrentHP))
 	s.WriteString("/")
 	s.WriteString(strconv.Itoa(stats.TotalHP))
 
-	s.WriteString("\n Attack:")
+	s.WriteString("\n\tAttack:")
 	s.WriteString(strconv.Itoa(stats.Attack))
-	s.WriteString("\n Defense:")
+	s.WriteString("\n\tDefense:")
 	s.WriteString(strconv.Itoa(stats.Defense))
-	s.WriteString("\n Special Defense:")
+	s.WriteString("\n\tSpecial Defense:")
 	s.WriteString(strconv.Itoa(stats.SpecialDefense))
-	s.WriteString("\n Special Attack:")
+	s.WriteString("\n\tSpecial Attack:")
 	s.WriteString(strconv.Itoa(stats.SpecialAttack))
-	s.WriteString("\n Speed:")
+	s.WriteString("\n\tSpeed:")
 	s.WriteString(strconv.Itoa(stats.Speed))
 
 	s.WriteString("\n")
