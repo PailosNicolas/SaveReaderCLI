@@ -210,23 +210,35 @@ func (m modelSaveMenu) pkmnDetail(id int) string {
 		}
 	}
 
+	budget := 25
+
 	s.WriteString("\n Stats:")
 	stats := team[id].Stats()
 
 	s.WriteString("\n\tHp:")
-	s.WriteString(strconv.Itoa(stats.CurrentHP))
-	s.WriteString("/")
+	space, _ := spaceCalculator(budget, "Hp:")
+	s.WriteString(space)
 	s.WriteString(strconv.Itoa(stats.TotalHP))
 
 	s.WriteString("\n\tAttack:")
+	space, _ = spaceCalculator(budget, "Attack:")
+	s.WriteString(space)
 	s.WriteString(strconv.Itoa(stats.Attack))
 	s.WriteString("\n\tDefense:")
+	space, _ = spaceCalculator(budget, "Defense:")
+	s.WriteString(space)
 	s.WriteString(strconv.Itoa(stats.Defense))
 	s.WriteString("\n\tSpecial Defense:")
+	space, _ = spaceCalculator(budget, "Special Defense:")
+	s.WriteString(space)
 	s.WriteString(strconv.Itoa(stats.SpecialDefense))
 	s.WriteString("\n\tSpecial Attack:")
+	space, _ = spaceCalculator(budget, "Special Attack:")
+	s.WriteString(space)
 	s.WriteString(strconv.Itoa(stats.SpecialAttack))
 	s.WriteString("\n\tSpeed:")
+	space, _ = spaceCalculator(budget, "Speed:")
+	s.WriteString(space)
 	s.WriteString(strconv.Itoa(stats.Speed))
 
 	s.WriteString("\n")
