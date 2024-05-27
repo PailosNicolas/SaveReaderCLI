@@ -63,7 +63,7 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 			}
 
 		case "enter", " ":
-			if m.selectedCode == "export_pokemon" {
+			if m.selectedCode == "export_pokemon" && m.choices[m.cursor].code != "main_menu" {
 				dir, err := os.Getwd()
 				if err != nil {
 					m.selectedCode = "error"
@@ -104,6 +104,7 @@ func (m *modelSaveMenu) readSave() {
 		}
 	}
 	m.teamDetailsMenuChoices = append(m.teamDetailsMenuChoices, choice{name: "Go back", code: "general_info"})
+	m.exportMenuChoices = append(m.exportMenuChoices, choice{name: "Go back", code: "main_menu"})
 }
 
 func (m modelSaveMenu) View() string {
