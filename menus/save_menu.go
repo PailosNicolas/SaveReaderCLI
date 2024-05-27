@@ -82,6 +82,7 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 
 			m.selectedCode = m.choices[m.cursor].code
 			m.changeChoices()
+			m.cursor = 0
 		}
 	}
 	return m, nil
