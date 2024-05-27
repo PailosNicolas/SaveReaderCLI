@@ -105,10 +105,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			case "enter", " ":
 				m.filePicker, cmd = m.filePicker.Update(msg)
 				if ok, _ := m.filePicker.DidSelectDisabledFile(msg); !ok {
-					m.saveMenu.selectedFile = m.filePicker.Path
-					m.saveMenu.readSave()
-					m.saveMenu.SetVariables()
-					m.selectedCode = "save_menu"
+					if ok, path := m.filePicker.DidSelectFile(msg); ok {
+						m.saveMenu.selectedFile = path
+						m.saveMenu.readSave()
+						m.saveMenu.SetVariables()
+						m.selectedCode = "save_menu"
+					}
 				}
 				return m, cmd
 
