@@ -90,6 +90,7 @@ func (m modelSaveMenu) Update(msg tea.Msg) (modelSaveMenu, tea.Cmd) {
 func (m *modelSaveMenu) readSave() {
 	m.save, _ = savereader.ReadDataFromSave(m.selectedFile)
 	m.exportMenuChoices = []choice{}
+	m.teamDetailsMenuChoices = []choice{}
 	for id, pkmn := range m.save.Trainer.Team() {
 		if pkmn.OTName() != "" { // improve empy validation
 			if pkmn.Nickname() != "" {
