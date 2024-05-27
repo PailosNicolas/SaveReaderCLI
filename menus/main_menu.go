@@ -17,6 +17,7 @@ type model struct {
 	selectedCode       string
 	filePicker         filepicker.Model
 	saveMenu           modelSaveMenu
+	firstUpdate        bool
 }
 
 type choices struct {
@@ -36,6 +37,7 @@ func InitialModel() model {
 		choices:            []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
 		filePicker:         fp,
 		selectedCode:       "main_menu",
+		firstUpdate:        true,
 	}
 }
 
@@ -153,6 +155,11 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	}
 
 	m.filePicker, cmd = m.filePicker.Update(msg)
+
+	if m.firstUpdate {
+		m.firstUpdate = false
+		cmd = tea.ClearScreen
+	}
 
 	return m, cmd
 }
