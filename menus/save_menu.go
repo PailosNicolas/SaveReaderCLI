@@ -193,7 +193,7 @@ func (m modelSaveMenu) pkmnDetail(id int) string {
 	} else {
 		s.WriteString(team[id].Species())
 	}
-	s.WriteString(" Lvl: ")
+	s.WriteString("\n Lvl: ")
 	s.WriteString(strconv.Itoa(team[id].Level()))
 	s.WriteString("\n Item held: ")
 	s.WriteString(team[id].ItemHeld().Name)
