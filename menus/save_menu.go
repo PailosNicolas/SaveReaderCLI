@@ -139,13 +139,18 @@ func (m modelSaveMenu) generalInfo() string {
 	s.WriteString("\n\tGender: ")
 	s.WriteString(m.save.Trainer.Gender())
 	s.WriteString("\n\nTeam info:")
+	budget := 10
 	for _, pkmn := range m.save.Trainer.Team() {
 		if pkmn.SpeciesIndex() != 0 {
 			s.WriteString("\n\t")
 			if pkmn.Nickname() != "" {
 				s.WriteString(pkmn.Nickname())
+				space, _ := spaceCalculator(budget, pkmn.Nickname())
+				s.WriteString(space)
 			} else {
 				s.WriteString(pkmn.Species())
+				space, _ := spaceCalculator(budget, pkmn.Species())
+				s.WriteString(space)
 			}
 			s.WriteString(" Lvl: ")
 			s.WriteString(strconv.Itoa(pkmn.Level()))
