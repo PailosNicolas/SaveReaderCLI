@@ -18,6 +18,7 @@ type model struct {
 	filePicker         filepicker.Model
 	saveMenu           modelSaveMenu
 	firstUpdate        bool
+	previousChoice     string
 }
 
 type choices struct {
@@ -37,6 +38,7 @@ func InitialModel() model {
 		filePicker:         fp,
 		selectedCode:       "main_menu",
 		firstUpdate:        true,
+		previousChoice:     "main_menu",
 	}
 }
 
