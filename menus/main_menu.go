@@ -17,6 +17,7 @@ type model struct {
 	selectedCode       string
 	filePicker         filepicker.Model
 	saveMenu           modelSaveMenu
+	pokemonMenu        modelPokemonMenu
 	firstUpdate        bool
 	previousChoice     string
 }
@@ -59,6 +60,10 @@ func (m model) View() string {
 		s += m.saveMenu.View()
 		s += "\nPress q to quit.\n"
 
+	case "pokemon_menu":
+		s += m.pokemonMenu.View()
+		s += "\nPress q to quit.\n"
+
 	default:
 		for i, choice := range m.choices {
 			if m.cursor == i {
@@ -96,6 +101,24 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			m.saveMenu, cmd = m.saveMenu.Update(msg)
 			if m.saveMenu.selectedCode == "go_back" {
+				m.selectedCode = "main_menu"
+			}
+			return m, cmd
+
+		case "pokemon_menu":
+			switch msg.String() {
+
+			case "ctrl+c", "q":
+				return m, tea.Quit
+
+			case tea.KeyEsc.String():
+				m.selectedCode = "load_pokemon"
+				return m, nil
+
+			}
+
+			m.pokemonMenu, cmd = m.pokemonMenu.Update(msg)
+			if m.pokemonMenu.selectedCode == "go_back" {
 				m.selectedCode = "main_menu"
 			}
 			return m, cmd
