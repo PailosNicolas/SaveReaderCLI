@@ -118,7 +118,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				return m, cmd
 
 			case tea.KeyEsc.String():
-				m.selectedCode = "read_save"
+				m.selectedCode = m.previousChoice
 				return m, nil
 			}
 			m.filePicker, cmd = m.filePicker.Update(msg)
@@ -145,12 +145,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				switch m.selectedCode {
 				case "main_menu":
 					m.choices = m.mainMenuChoices
+					m.previousChoice = "main_menu"
 				case "read_save":
 					m.filePicker.AllowedTypes = []string{".sav", ".SAV"}
 					m.choices = m.readSaveChoices
+					m.previousChoice = "read_save"
 				case "load_pokemon":
 					m.filePicker.AllowedTypes = []string{".pkm", ".pkmn"}
 					m.choices = m.loadPokemonChoices
+					m.previousChoice = "load_pokemon"
 				}
 			}
 			return m, nil
