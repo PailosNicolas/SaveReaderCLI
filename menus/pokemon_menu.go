@@ -72,7 +72,12 @@ func (m modelPokemonMenu) Update(msg tea.Msg) (modelPokemonMenu, tea.Cmd) {
 			if m.cursor < len(m.choices)-1 {
 				m.cursor++
 			}
+		case "enter", " ":
+			m.selectedCode = m.choices[m.cursor].code
+			m.changeChoices()
+			m.cursor = 0
 		}
+
 	}
 	return m, nil
 }
@@ -90,4 +95,13 @@ func (m modelPokemonMenu) generalInfoMenu() string {
 	s += "\n"
 
 	return s
+}
+
+func (m *modelPokemonMenu) changeChoices() {
+	switch m.selectedCode {
+	case "general_info":
+		m.choices = m.mainMenuChoices //TODO: it should be change to a generalInfoChoices when it is aviable
+	default:
+		m.choices = m.mainMenuChoices
+	}
 }
