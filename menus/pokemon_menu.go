@@ -1,6 +1,7 @@
 package menus
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/PailosNicolas/GoPkmSaveReader/pokemon"
@@ -14,7 +15,7 @@ type modelPokemonMenu struct {
 	choices         []choices
 	mainMenuChoices []choices
 	cursor          int
-	// errorStr        string
+	errorStr        string
 }
 
 func (m modelPokemonMenu) Init() tea.Cmd {
@@ -35,7 +36,18 @@ func (m *modelPokemonMenu) readPokemon() {
 func (m modelPokemonMenu) View() string {
 	var s strings.Builder
 
-	s.WriteString("Pokemon menu")
+	s.WriteString("Pokemon menu\n")
+	switch m.selectedCode {
+	case "error":
+		s.WriteString("An error has occurred:\n")
+		s.WriteString(m.errorStr + "\n")
+		s.WriteString("Press any key to continue.\n")
+		return s.String()
+		//case "general_info":
+		//	s.WriteString(m.generalInfo())
+	}
+
+	s.WriteString(m.generalInfoMenu())
 
 	return s.String()
 }
@@ -63,4 +75,19 @@ func (m modelPokemonMenu) Update(msg tea.Msg) (modelPokemonMenu, tea.Cmd) {
 		}
 	}
 	return m, nil
+}
+
+func (m modelPokemonMenu) generalInfoMenu() string {
+	s := ""
+	for i, choice := range m.choices {
+		if m.cursor == i {
+			s += fmt.Sprintf("\033[31m%s \033[0m\n", choice.name)
+		} else {
+			s += fmt.Sprintf("%s\n", choice.name)
+		}
+	}
+
+	s += "\n"
+
+	return s
 }
