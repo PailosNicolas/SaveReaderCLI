@@ -14,7 +14,7 @@ type modelPokemonMenu struct {
 	choices         []choices
 	mainMenuChoices []choices
 	cursor          int
-	errorStr        string
+	// errorStr        string
 }
 
 func (m modelPokemonMenu) Init() tea.Cmd {
