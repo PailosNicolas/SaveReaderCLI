@@ -27,7 +27,6 @@ type choices struct {
 
 func InitialModel() model {
 	fp := filepicker.New()
-	fp.AllowedTypes = []string{".sav", ".pkmn", ".SAV"}
 	fp.ShowPermissions = false
 	fp.CurrentDirectory, _ = os.Getwd()
 	return model{
@@ -145,8 +144,10 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				case "main_menu":
 					m.choices = m.mainMenuChoices
 				case "read_save":
+					m.filePicker.AllowedTypes = []string{".sav", ".SAV"}
 					m.choices = m.readSaveChoices
 				case "load_pokemon":
+					m.filePicker.AllowedTypes = []string{".pkm", ".pkmn"}
 					m.choices = m.loadPokemonChoices
 				}
 			}
