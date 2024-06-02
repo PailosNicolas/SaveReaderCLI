@@ -35,3 +35,28 @@ func (m modelPokemonMenu) View() string {
 
 	return s.String()
 }
+
+func (m modelPokemonMenu) Update(msg tea.Msg) (modelPokemonMenu, tea.Cmd) {
+	switch msg := msg.(type) {
+
+	case tea.KeyMsg:
+		if m.selectedCode == "error" {
+			m.selectedCode = "main_menu"
+			m.choices = m.mainMenuChoices
+			return m, nil
+		}
+		switch msg.String() {
+
+		case "up", "k":
+			if m.cursor > 0 {
+				m.cursor--
+			}
+
+		case "down", "j":
+			if m.cursor < len(m.choices)-1 {
+				m.cursor++
+			}
+		}
+	}
+	return m, nil
+}
