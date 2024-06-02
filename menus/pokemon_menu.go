@@ -1,6 +1,8 @@
 package menus
 
 import (
+	"strings"
+
 	"github.com/PailosNicolas/GoPkmSaveReader/pokemon"
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -24,4 +26,12 @@ func (m *modelPokemonMenu) SetVariables() {
 	m.choices = m.mainMenuChoices
 	m.selectedCode = "main_menu"
 	m.cursor = 0
+}
+
+func (m modelPokemonMenu) View() string {
+	var s strings.Builder
+
+	s.WriteString("Pokemon menu")
+
+	return s.String()
 }
