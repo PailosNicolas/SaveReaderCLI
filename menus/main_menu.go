@@ -32,8 +32,8 @@ func InitialModel() model {
 	fp.CurrentDirectory, _ = os.Getwd()
 	return model{
 		mainMenuChoices:    []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
-		readSaveChoices:    []choices{{name: "Read file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
-		loadPokemonChoices: []choices{{name: "Read file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
+		readSaveChoices:    []choices{{name: "Read save file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
+		loadPokemonChoices: []choices{{name: "Read pokemon file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
 		choices:            []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
 		filePicker:         fp,
 		selectedCode:       "main_menu",
