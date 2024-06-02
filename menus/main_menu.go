@@ -32,7 +32,7 @@ func InitialModel() model {
 	return model{
 		mainMenuChoices:    []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
 		readSaveChoices:    []choices{{name: "Read file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
-		loadPokemonChoices: []choices{{name: "Go to main menu", code: "main_menu"}},
+		loadPokemonChoices: []choices{{name: "Read file", code: "read_file"}, {name: "Go to main menu", code: "main_menu"}},
 		choices:            []choices{{name: "Read save", code: "read_save"}, {name: "Load pokemon", code: "load_pokemon"}},
 		filePicker:         fp,
 		selectedCode:       "main_menu",
