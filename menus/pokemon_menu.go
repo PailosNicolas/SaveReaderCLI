@@ -28,6 +28,10 @@ func (m *modelPokemonMenu) SetVariables() {
 	m.cursor = 0
 }
 
+func (m *modelPokemonMenu) readPokemon() {
+	m.pokemon, _ = pokemon.ReadPokemonFromFile(m.selectedFile)
+}
+
 func (m modelPokemonMenu) View() string {
 	var s strings.Builder
 
