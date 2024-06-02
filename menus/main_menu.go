@@ -132,10 +132,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.filePicker, cmd = m.filePicker.Update(msg)
 				if ok, _ := m.filePicker.DidSelectDisabledFile(msg); !ok {
 					if ok, path := m.filePicker.DidSelectFile(msg); ok {
-						m.saveMenu.selectedFile = path
-						m.saveMenu.readSave()
-						m.saveMenu.SetVariables()
-						m.selectedCode = "save_menu"
+						switch m.previousChoice {
+						case "read_save":
+							m.saveMenu.selectedFile = path
+							m.saveMenu.readSave()
+							m.saveMenu.SetVariables()
+							m.selectedCode = "save_menu"
+						case "load_pokemon":
+							m.pokemonMenu.selectedFile = path
+							m.pokemonMenu.readPokemon()
+							m.pokemonMenu.SetVariables()
+							m.selectedCode = "pokemon_menu"
+						}
 					}
 				}
 				return m, cmd
