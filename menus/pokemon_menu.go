@@ -24,7 +24,7 @@ func (m modelPokemonMenu) Init() tea.Cmd {
 }
 
 func (m *modelPokemonMenu) SetVariables() {
-	m.mainMenuChoices = []choices{{name: "General information", code: "general_info"}, {name: "Go back", code: "go_back"}}
+	m.mainMenuChoices = []choices{{name: "Stats", code: "stats_info"}, {name: "Moves", code: "moves_info"}, {name: "Go back", code: "go_back"}}
 	m.choices = m.mainMenuChoices
 	m.selectedCode = "main_menu"
 	m.cursor = 0
