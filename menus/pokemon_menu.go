@@ -2,6 +2,7 @@ package menus
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/PailosNicolas/GoPkmSaveReader/pokemon"
@@ -38,6 +39,15 @@ func (m modelPokemonMenu) View() string {
 
 	s.WriteString("Pokemon menu\n")
 	switch m.selectedCode {
+	case "main_menu":
+		if m.pokemon.Nickname() != "" {
+			s.WriteString(m.pokemon.Nickname())
+		} else {
+			s.WriteString(m.pokemon.Species())
+		}
+		s.WriteString(" Lv.")
+		s.WriteString(strconv.Itoa(m.pokemon.Level()))
+		s.WriteString("\n")
 	case "error":
 		s.WriteString("An error has occurred:\n")
 		s.WriteString(m.errorStr + "\n")
