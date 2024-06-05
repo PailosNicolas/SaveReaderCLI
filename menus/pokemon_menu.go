@@ -37,7 +37,6 @@ func (m *modelPokemonMenu) readPokemon() {
 func (m modelPokemonMenu) View() string {
 	var s strings.Builder
 
-	s.WriteString("Pokemon menu\n")
 	switch m.selectedCode {
 	case "main_menu":
 		if m.pokemon.Nickname() != "" {
@@ -48,6 +47,9 @@ func (m modelPokemonMenu) View() string {
 		s.WriteString(" Lv.")
 		s.WriteString(strconv.Itoa(m.pokemon.Level()))
 		s.WriteString("\n")
+		s.WriteString("Item held: ")
+		s.WriteString(m.pokemon.ItemHeld().Name)
+		s.WriteString("\n\n")
 	case "error":
 		s.WriteString("An error has occurred:\n")
 		s.WriteString(m.errorStr + "\n")
