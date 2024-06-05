@@ -44,7 +44,7 @@ func (m modelPokemonMenu) View() string {
 		} else {
 			s.WriteString(m.pokemon.Species())
 		}
-		s.WriteString(" Lv.")
+		s.WriteString(" Lvl:")
 		s.WriteString(strconv.Itoa(m.pokemon.Level()))
 		s.WriteString("\n")
 		s.WriteString("Item held: ")
