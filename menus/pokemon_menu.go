@@ -49,6 +49,9 @@ func (m modelPokemonMenu) View() string {
 		s.WriteString("\n")
 		s.WriteString("Item held: ")
 		s.WriteString(m.pokemon.ItemHeld().Name)
+		s.WriteString("\n")
+		s.WriteString("Pokeball: ")
+		s.WriteString(m.pokemon.PokeBall())
 		s.WriteString("\n\n")
 	case "error":
 		s.WriteString("An error has occurred:\n")
