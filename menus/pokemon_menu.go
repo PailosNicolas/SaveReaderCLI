@@ -35,8 +35,8 @@ func (m *modelPokemonMenu) SetVariables() {
 
 func (m *modelPokemonMenu) readPokemon() {
 	m.pokemon, _ = pokemon.ReadPokemonFromFile(m.selectedFile)
-	for id, move := range m.pokemon.Moves() {
-		m.movesMenuChoices = append(m.movesMenuChoices, choices{name: move.Name, code: string(rune(id))})
+	for _, move := range m.pokemon.Moves() {
+		m.movesMenuChoices = append(m.movesMenuChoices, choices{name: move.Name, code: "moves_info"})
 	}
 	m.movesMenuChoices = append(m.movesMenuChoices, choices{name: "Go back", code: "main_menu"})
 }
