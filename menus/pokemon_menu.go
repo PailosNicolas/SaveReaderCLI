@@ -10,14 +10,15 @@ import (
 )
 
 type modelPokemonMenu struct {
-	selectedFile    string
-	pokemon         pokemon.Pokemon
-	selectedCode    string
-	choices         []choices
-	mainMenuChoices []choices
-	statMenuChoices []choices
-	cursor          int
-	errorStr        string
+	selectedFile     string
+	pokemon          pokemon.Pokemon
+	selectedCode     string
+	choices          []choices
+	mainMenuChoices  []choices
+	statMenuChoices  []choices
+	movesMenuChoices []choices
+	cursor           int
+	errorStr         string
 }
 
 func (m modelPokemonMenu) Init() tea.Cmd {
@@ -34,6 +35,9 @@ func (m *modelPokemonMenu) SetVariables() {
 
 func (m *modelPokemonMenu) readPokemon() {
 	m.pokemon, _ = pokemon.ReadPokemonFromFile(m.selectedFile)
+	for id, move := range m.pokemon.Moves() {
+		m.movesMenuChoices = append(m.movesMenuChoices, choices{name: move.Name, code: string(rune(id))})
+	}
 }
 
 func (m modelPokemonMenu) View() string {
