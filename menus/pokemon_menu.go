@@ -26,7 +26,7 @@ func (m modelPokemonMenu) Init() tea.Cmd {
 
 func (m *modelPokemonMenu) SetVariables() {
 	m.mainMenuChoices = []choices{{name: "Stats", code: "stats_info"}, {name: "Moves", code: "moves_info"}, {name: "Go back", code: "go_back"}}
-	m.statMenuChoices = []choices{{name: "Go back", code: "go_back"}}
+	m.statMenuChoices = []choices{{name: "Go back", code: "main_menu"}}
 	m.choices = m.mainMenuChoices
 	m.selectedCode = "main_menu"
 	m.cursor = 0
@@ -42,6 +42,8 @@ func (m modelPokemonMenu) View() string {
 	switch m.selectedCode {
 	case "main_menu":
 		s.WriteString(m.mainMenuView())
+	case "stats_info":
+		s.WriteString(pokemonStatView(m.pokemon))
 	case "error":
 		s.WriteString("An error has occurred:\n")
 		s.WriteString(m.errorStr + "\n")
@@ -105,6 +107,8 @@ func (m *modelPokemonMenu) changeChoices() {
 	switch m.selectedCode {
 	case "general_info":
 		m.choices = m.mainMenuChoices //TODO: it should be change to a generalInfoChoices when it is aviable
+	case "stats_info":
+		m.choices = m.statMenuChoices
 	default:
 		m.choices = m.mainMenuChoices
 	}
