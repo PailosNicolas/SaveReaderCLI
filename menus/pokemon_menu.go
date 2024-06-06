@@ -49,6 +49,14 @@ func (m modelPokemonMenu) View() string {
 		s.WriteString(m.mainMenuView())
 	case "stats_info":
 		s.WriteString(pokemonStatView(m.pokemon))
+	case "moves_info":
+		moves := m.pokemon.Moves()
+		if m.cursor < len(m.movesMenuChoices)-1 {
+			s.WriteString(moveView(moves[m.cursor]))
+		} else {
+			s.WriteString(moveView(moves[m.cursor-1]))
+		}
+		s.WriteString("\n")
 	case "error":
 		s.WriteString("An error has occurred:\n")
 		s.WriteString(m.errorStr + "\n")
