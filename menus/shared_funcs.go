@@ -113,3 +113,13 @@ func pokemonStatView(pkm pokemon.Pokemon) string {
 
 	return s.String()
 }
+
+func moveView(move pokemon.Move) string {
+	var s strings.Builder
+
+	s.WriteString(move.Name)
+	s.WriteString(":\n\tPP: ")
+	s.WriteString(strconv.Itoa(move.PP))
+
+	return s.String()
+}
