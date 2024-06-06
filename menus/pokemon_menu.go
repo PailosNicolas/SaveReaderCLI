@@ -15,6 +15,7 @@ type modelPokemonMenu struct {
 	selectedCode    string
 	choices         []choices
 	mainMenuChoices []choices
+	statMenuChoices []choices
 	cursor          int
 	errorStr        string
 }
@@ -25,6 +26,7 @@ func (m modelPokemonMenu) Init() tea.Cmd {
 
 func (m *modelPokemonMenu) SetVariables() {
 	m.mainMenuChoices = []choices{{name: "Stats", code: "stats_info"}, {name: "Moves", code: "moves_info"}, {name: "Go back", code: "go_back"}}
+	m.statMenuChoices = []choices{{name: "Go back", code: "go_back"}}
 	m.choices = m.mainMenuChoices
 	m.selectedCode = "main_menu"
 	m.cursor = 0
