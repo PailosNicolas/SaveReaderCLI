@@ -216,7 +216,7 @@ func (m modelSaveMenu) pkmnDetail(id int) string {
 			s.WriteString(space)
 		}
 	}
-
+	s.WriteString("\n ")
 	s.WriteString(pokemonStatView(team[id]))
 
 	return s.String()
