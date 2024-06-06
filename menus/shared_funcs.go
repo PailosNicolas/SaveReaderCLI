@@ -29,7 +29,7 @@ func pokemonStatView(pkm pokemon.Pokemon) string {
 	budget := 25
 	budgetHeader := 10
 
-	s.WriteString("\n Stats:\n\t")
+	s.WriteString("Stats:\n\t")
 	stats := pkm.Stats()
 	ivs := pkm.IVs()
 	evs := pkm.Evs()
