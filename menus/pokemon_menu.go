@@ -38,6 +38,7 @@ func (m *modelPokemonMenu) readPokemon() {
 	for id, move := range m.pokemon.Moves() {
 		m.movesMenuChoices = append(m.movesMenuChoices, choices{name: move.Name, code: string(rune(id))})
 	}
+	m.movesMenuChoices = append(m.movesMenuChoices, choices{name: "Go back", code: "main_menu"})
 }
 
 func (m modelPokemonMenu) View() string {
@@ -113,6 +114,8 @@ func (m *modelPokemonMenu) changeChoices() {
 		m.choices = m.mainMenuChoices //TODO: it should be change to a generalInfoChoices when it is aviable
 	case "stats_info":
 		m.choices = m.statMenuChoices
+	case "moves_info":
+		m.choices = m.movesMenuChoices
 	default:
 		m.choices = m.mainMenuChoices
 	}
