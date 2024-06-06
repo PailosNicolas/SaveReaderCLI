@@ -39,33 +39,7 @@ func (m modelPokemonMenu) View() string {
 
 	switch m.selectedCode {
 	case "main_menu":
-		budget := 15
-		if m.pokemon.Nickname() != "" {
-			s.WriteString(m.pokemon.Nickname())
-		} else {
-			s.WriteString(m.pokemon.Species())
-		}
-		s.WriteString("\n")
-		s.WriteString("Lvl: ")
-		space, _ := spaceCalculator(budget, "Lvl: ")
-		s.WriteString(space)
-		s.WriteString(strconv.Itoa(m.pokemon.Level()))
-		s.WriteString("\n")
-		s.WriteString("Item held: ")
-		space, _ = spaceCalculator(budget, "Item held: ")
-		s.WriteString(space)
-		s.WriteString(m.pokemon.ItemHeld().Name)
-		s.WriteString("\n")
-		s.WriteString("Pokeball: ")
-		space, _ = spaceCalculator(budget, "Pokeball: ")
-		s.WriteString(space)
-		s.WriteString(m.pokemon.PokeBall())
-		s.WriteString("\n")
-		s.WriteString("OT Name: ")
-		space, _ = spaceCalculator(budget, "OT Name: ")
-		s.WriteString(space)
-		s.WriteString(m.pokemon.OTName())
-		s.WriteString("\n\n")
+		s.WriteString(m.mainMenuView())
 	case "error":
 		s.WriteString("An error has occurred:\n")
 		s.WriteString(m.errorStr + "\n")
@@ -132,4 +106,37 @@ func (m *modelPokemonMenu) changeChoices() {
 	default:
 		m.choices = m.mainMenuChoices
 	}
+}
+
+func (m *modelPokemonMenu) mainMenuView() string {
+	var s strings.Builder
+	budget := 15
+	if m.pokemon.Nickname() != "" {
+		s.WriteString(m.pokemon.Nickname())
+	} else {
+		s.WriteString(m.pokemon.Species())
+	}
+	s.WriteString("\n")
+	s.WriteString("Lvl: ")
+	space, _ := spaceCalculator(budget, "Lvl: ")
+	s.WriteString(space)
+	s.WriteString(strconv.Itoa(m.pokemon.Level()))
+	s.WriteString("\n")
+	s.WriteString("Item held: ")
+	space, _ = spaceCalculator(budget, "Item held: ")
+	s.WriteString(space)
+	s.WriteString(m.pokemon.ItemHeld().Name)
+	s.WriteString("\n")
+	s.WriteString("Pokeball: ")
+	space, _ = spaceCalculator(budget, "Pokeball: ")
+	s.WriteString(space)
+	s.WriteString(m.pokemon.PokeBall())
+	s.WriteString("\n")
+	s.WriteString("OT Name: ")
+	space, _ = spaceCalculator(budget, "OT Name: ")
+	s.WriteString(space)
+	s.WriteString(m.pokemon.OTName())
+	s.WriteString("\n\n")
+
+	return s.String()
 }
