@@ -14,11 +14,11 @@ go build main.go && ./main.go
 So far you can do two main things, read a save file and read a pokemon file.
 
 ### Reading a save file allows you to:
-    -General information
-    -Check team information
-    -Export team member (it can be read)
+- General information
+- Check team information
+- Export team member (it can be read)
 
 ### Reading a pokemon file allows you to:
-    -General information
-    -Check stats (same view as reading save file)
-    -Check moves information.
+- General information
+- Check stats (same view as reading save file)
+- Check moves information.
