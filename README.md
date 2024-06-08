@@ -1,1 +1,2 @@
 # SaveReaderCLI
+This is a cli implementation of [GoPkmSaveReader](https://github.com/PailosNicolas/GoPkmSaveReader) using [Bubbles](https://github.com/charmbracelet/bubbles), I wanted to test the save reader module as a user perspective so I could give myself feedback and find mistakes and improve on them.
