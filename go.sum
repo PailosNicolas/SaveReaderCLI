@@ -1,5 +1,5 @@
-github.com/PailosNicolas/GoPkmSaveReader v0.1.0 h1:jvxMBkIfCJiAnN/5g/xCANUxgi+kvp4V+k1T7fEAjqI=
-github.com/PailosNicolas/GoPkmSaveReader v0.1.0/go.mod h1:S8Homm397O4z0iP6sThHtq05C3J24P5aHrxPm3HqbZg=
+github.com/PailosNicolas/GoPkmSaveReader v0.2.0 h1:PsJ6GAS9A7UmL4mmfdDnsrd+10jZd4t6b7BfbCkPdOo=
+github.com/PailosNicolas/GoPkmSaveReader v0.2.0/go.mod h1:S8Homm397O4z0iP6sThHtq05C3J24P5aHrxPm3HqbZg=
 github.com/aymanbagabas/go-osc52/v2 v2.0.1 h1:HwpRHbFMcZLEVr42D4p7XBqjyuxQH5SMiErDT4WkJ2k=
 github.com/aymanbagabas/go-osc52/v2 v2.0.1/go.mod h1:uYgXzlJ7ZpABp8OJ+exZzJJhRNQ2ASbcXHWsFqH8hp8=
 github.com/charmbracelet/bubbles v0.18.0 h1:PYv1A036luoBGroX6VWjQIE9Syf2Wby2oOl/39KLfy0=

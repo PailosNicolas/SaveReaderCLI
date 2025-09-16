@@ -3,7 +3,7 @@ module github.com/PailosNicolas/SaveReaderCLI
 go 1.22.0
 
 require (
-	github.com/PailosNicolas/GoPkmSaveReader v0.1.0
+	github.com/PailosNicolas/GoPkmSaveReader v0.2.0
 	github.com/charmbracelet/bubbles v0.18.0
 	github.com/charmbracelet/bubbletea v0.26.1
 )
